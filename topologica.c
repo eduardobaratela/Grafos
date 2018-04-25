@@ -3,41 +3,41 @@
 #include "TADlista.h"
 #include "pilha.h"
 
-//Funcao de percorrimento da DFS, onde se percorre de no em no
-void visita(t_lista L, int i, int v2, int* cor, pilha* P){
+//Funcao de percorrimento da DFS, onde se percorre de no em no, e insere todos os nos finalizados em uma pilha em ordem topologica
+void visita(t_lista L, int i, int* cor, pilha* T){
 
-	inserePilha(i, P);
 	cor[i] = 1;
-	if(i == v2){
-		printaPilha(*P);
-		return;
-	} 
 
 	link aux = L->list[i];
 	while(aux != NULL){
-		if(cor[aux->vizinho] == 0)
-			visita(L, aux->vizinho, v2, cor, P);
+		if(cor[aux->vizinho] == 0){
+			visita(L, aux->vizinho, cor, T);
+		}
 		aux = aux->prox;
 	}
 	cor[i] = 2;
-	
-	removePilha(P);
+	inserePilha(i, T);
 }
 
 //Funcao que comeca a DFS, pintando todos os nos de branco no comeco e chamando o seu percorrimento a partir
 //um no inicial ate um no destino.
-void DFS(t_lista L, int v1, int v2){
+void DFS(t_lista L){
 	int cor[L->vert];
-	int i;
+	int i, v1 = 0;
 	
-	pilha P;
-	criaPilha(&P);
+	pilha T;
+	criaPilha(&T);
 	
 	for(i = 0; i< L->vert; i++){
 		cor[i] = 0;					//cor = 0 == branco /// cor = 1 == cinza /// cor = 2 == preto
 	}
 
-	visita(L, v1, v2, cor, &P);
+	for (v1 = 0; v1 < L->vert; v1++){
+		if(cor[v1] == 0)
+			visita(L, v1, cor, &T);
+	}
+
+	printaPilha(T);
 }
 
 int main(){
@@ -51,10 +51,7 @@ int main(){
 		insereListaOrientada(L, v1, v2, 1);
 	}
 
-	while(scanf("%d %d\n", &v1, &v2) == 2){	//chama a dfs com um ponto de origem e um ponto de destino.
-		DFS(L, v1, v2);
-		printf("\n");
-	}
+	DFS(L);
 
 	return 0;
 }

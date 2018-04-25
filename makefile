@@ -1,8 +1,8 @@
-all: DFS.o pilha.o TADlista.o
-	gcc DFS.o pilha.o TADlista.o -o DFS -g -I.
+all: topologica.o pilha.o TADlista.o
+	gcc topologica.o pilha.o TADlista.o -o topologica -g -I.
 
-DFS.o: DFS.c
-	gcc -c DFS.c
+topologica.o: topologica.c
+	gcc -c topologica.c
 
 pilha.o: pilha.c
 	gcc -c pilha.c
@@ -11,7 +11,7 @@ TADlista.o: TADlista.c
 	gcc -c TADlista.c
 
 run:all
-	./DFS
+	./topologica
 
 clean:
-	rm -rf *o DFS
+	rm -rf *o topologica

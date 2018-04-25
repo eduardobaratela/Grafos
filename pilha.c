@@ -47,7 +47,7 @@ void criaPilha(pilha* p){
 }
 
 //Funcao que inverte a pilha e a printa
-void printaPilha(pilha p){
+void printaPilhaInvertida(pilha p){
 	nodeP* aux = p.head;
 	int vet[p.size];
 	int i = 0;
@@ -58,4 +58,15 @@ void printaPilha(pilha p){
 	}
 	for(i = i-1; i >= 0; i--)
 		printf("%d ", vet[i]);
+}
+
+//Funcao que printa a pilha normalmente
+void printaPilha(pilha p){
+	nodeP* aux = p.head;
+
+	while(aux != NULL){
+		printf("%d ", aux->num);
+		aux = aux->prox;
+	}
+				
 }

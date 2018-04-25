@@ -59,40 +59,24 @@ void insereListaNaoOrientada(t_lista L, int v, int viz, int peso){
   link temp1, temp2;
   
   if(L->list[v] != NULL){
-  	//printf("debug0\n");
   	  if(viz < aux->vizinho){
-  	  	//printf("debug-1\n");
   	  	temp1 = newNode(viz, peso, aux);
-  	  	//printf("debug-2\n");
   	  	L->list[v] = temp1;
-  	  	//printf("debug-3\n");
   	  }
   	  else{
-  	  	//printf("debug-4\n");
 	      while(aux->prox != NULL && viz >= aux->prox->vizinho){
-	      	//printf("debug-5\n");
 	      	aux = aux->prox;
-	      	//printf("debug-6\n");
 	      }
-	      //printf("debug-7\n"); 
 	      if(aux->vizinho == viz){
-	      	//printf("debug-8\n");
 	      	aux->peso = peso;
-	     	//printf("debug-9\n");
 	      } 
 	      else if(aux->prox != NULL){
-	      	//printf("debug-10\n");
 	      	temp1 = newNode(viz, peso, aux->prox);
-	      	//printf("debug-11\n");
 	      	aux->prox = temp1;
-	      	//printf("debug-11\n");
 	      }
 	      else{
-	      	//printf("debug-12\n");
 	      	temp1 = newNode(viz, peso, NULL);
-	      	//printf("debug-13\n");
 	      	aux->prox = temp1;
-	      	//printf("debug-14\n");
 	      }
 	  }
   }
@@ -106,27 +90,17 @@ void insereListaNaoOrientada(t_lista L, int v, int viz, int peso){
 	  	  	L->list[viz] = temp2;
 	  	  }
 	  	  else{
-	  	  	//printf("debug1\n");
 		      while(aux->prox != NULL && v >= aux->prox->vizinho){ 
-		      	//printf("debug2\n");
 		      	aux = aux->prox;
-		      	//printf("debug3\n");
 		      }
-		      //printf("debug4\n");
 		      if(aux->vizinho == v){
-		      	//printf("debug5\n");
 		      	aux->peso = peso;
-		      	//printf("debug6\n");
 		      } 
 		      else if(aux->prox != NULL){
-		      	//printf("debug7\n");
 		      	temp2 = newNode(v, peso, aux->prox);
-		      	//printf("debug8\n");
 		      	aux->prox = temp2;
-		      	//printf("debug9\n");
 		      }
 		      else{
-		      	//printf("aqui?");
 		      	temp2 = newNode(v, peso, NULL);
 		      	aux->prox = temp2;
 		      }

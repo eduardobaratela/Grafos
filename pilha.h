@@ -17,6 +17,7 @@ typedef struct pilha{
 void inserePilha(int num, pilha* p);
 int removePilha(pilha* p);
 void criaPilha(pilha* p);
+void printaPilhaInvertida(pilha p);
 void printaPilha(pilha p);
 
 #endif
