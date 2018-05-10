@@ -1,17 +1,14 @@
-all: topologica.o pilha.o TADlista.o
-	gcc topologica.o pilha.o TADlista.o -o topologica -g -I.
+all: PRIM.o TADlista.o
+	gcc PRIM.o TADlista.o -o PRIM -g -I.
 
-topologica.o: topologica.c
-	gcc -c topologica.c
-
-pilha.o: pilha.c
-	gcc -c pilha.c
+PRIM.o: PRIM.c
+	gcc -c PRIM.c
 
 TADlista.o: TADlista.c
 	gcc -c TADlista.c
 
 run:all
-	./topologica
+	./PRIM
 
 clean:
-	rm -rf *o topologica
+	rm -rf *o PRIM
