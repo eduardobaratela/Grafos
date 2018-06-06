@@ -3,31 +3,34 @@
 #include <limits.h>
 #include "TADmatriz.h"
 
-void dijkstra(t_matriz M){
+void dijkstra(t_matriz M, int v, int dest){
 
 	int vertMin, camMin;
 	int peso[M->vertice];	
 	int pred[M->vertice];
 	int visitado[M->vertice];
-	int aux;
+	int prioridade[M->vertice];
+	int aux, i, j;
 
-	for (int i = 0; i < M->vertice; i++){  //seta os valores dos vetores de peso e predecessor
-		peso[i] = M->mat[0][i];
+	//seta os valores dos vetores de peso e predecessor
+	for (i = 0; i < M->vertice; i++){  
+		peso[i] = M->mat[v][i];
 		visitado[i] = 0;
 		if(peso[i]==inf)
 			pred[i] = -1;
 		else
-			pred[i] = 0;
+			pred[i] = v;
 	}
 
-	visitado[0] = 1; // primeiro vértice é marcado como visitado
-	vertMin = 0; //primeiro vértice é setado como vértice de custo minimo
+	visitado[v] = 1; // primeiro vértice é marcado como visitado
+	vertMin = v; //primeiro vértice é setado como vértice de custo minimo
 
 
-	for (int i = 0; i < M->vertice; i++){
+	for (i = 0; i < M->vertice; i++){
 		camMin = inf;
-		
-		for (int j = 0; j < M->vertice; j++){	//laço que acha o vértice com menor peso e que ainda nao foi visitado
+
+		//laço que acha o vértice com menor peso e que ainda nao foi visitado
+		for (j = 0; j < M->vertice; j++){	
 			if(visitado[j] == 0 && peso[j] < camMin){
 				camMin = peso[j];
 				vertMin = j;
@@ -36,7 +39,8 @@ void dijkstra(t_matriz M){
 
 		visitado[vertMin] = 1; //marca o verrtice minimo como visitado
 
-		for (int j = 0; j < M->vertice; j++){
+		//laço que atualiza todos os caminhos para vértices adjacentes a "vertMin",passando por este, que ainda não foram visitados
+		for (j = 0; j < M->vertice; j++){
 			aux = camMin + M->mat[vertMin][j];
 			if(visitado[j] == 0 && M->mat[vertMin][j] != inf && aux < peso[j]){
 				peso[j] = aux;
@@ -45,15 +49,28 @@ void dijkstra(t_matriz M){
 		}
 	}
 
-	for (int i = 0; i < M->vertice; i++){
-		printf("%d \n", pred[i]);
+	//fila de prioridades criada através do percorrimento do vetor de predecessores
+	aux = 0;
+	for (i = dest; pred[i] >= 0; i = pred[i]){
+		prioridade[aux] = i;
+		aux++;	
+	}
+	if(i != dest){							
+		prioridade[aux] = i;
+		aux++;
 	}
 
+	//printa a fila de prioridades
+	if(aux != 0){
+		for (i = aux-1; i >= 0; i--)
+			printf("%d ", prioridade[i]);
+	}
+	printf("\n");
 }
 
 int main(){
 	
-	int vertices, arestas, v1, v2, peso;
+	int vertices, arestas, v1, v2, peso, origem, dest;
 	scanf("%d %d", &vertices, &arestas);
 
 	t_matriz M = iniciaMatriz(vertices);
@@ -64,9 +81,9 @@ int main(){
 		insereMatOrientada(M, v1, v2, peso);
 	}
 
-	printMatriz(M);
 
-	dijkstra(M);
+	while(scanf("%d %d", &origem, &dest) == 2)
+		dijkstra(M, origem, dest);
 	
 	destroiMatriz(M);
 

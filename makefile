@@ -1,14 +1,14 @@
-all: PRIM.o TADlista.o
-	gcc PRIM.o TADlista.o -o PRIM -g -I.
+all: dijkstra.o TADmatriz.o
+	gcc dijkstra.o TADmatriz.o -o dijkstra -g -I.
 
-PRIM.o: PRIM.c
-	gcc -c PRIM.c
+dijkstra.o: dijkstra.c
+	gcc -c dijkstra.c
 
-TADlista.o: TADlista.c
-	gcc -c TADlista.c
+TADmatriz.o: TADmatriz.c
+	gcc -c TADmatriz.c
 
 run:all
-	./PRIM
+	./dijkstra
 
 clean:
-	rm -rf *o PRIM
+	rm -rf *o dijkstra
