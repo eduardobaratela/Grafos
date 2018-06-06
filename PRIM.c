@@ -34,7 +34,6 @@ void prim(t_lista L, int orig, int* pai){
 								menorPeso = aux->peso;
 								orig = i;
 								dest = aux->vizinho;
-							}
 						}
 					}
 					aux = aux->prox;

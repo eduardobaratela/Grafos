@@ -2,6 +2,9 @@
 #define TADMATRIZ
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
+
+#define inf INT_MAX
 
 typedef struct matriz{
 	int vertice;

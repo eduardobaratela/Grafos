@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "TADmatriz.h"
 
 //Funcao que aloca a matriz do TAD matriz
@@ -9,7 +10,7 @@ int** criaMatriz(int v){
 	int** m = malloc(v * sizeof(int*));
 	for(i = 0; i < v; i++){
 		m[i] = malloc(v * sizeof(int));
-		for(j = 0; j < v; j++) m[i][j] = -1;
+		for(j = 0; j < v; j++) m[i][j] = inf;
 	}
 
 	return m;
@@ -44,13 +45,13 @@ void insereMatNaoOrientada(t_matriz M, int a, int b, int peso){
 
 //Funcao que remove um elemento direcinalmente na matriz
 void removeMatOrientada(t_matriz M, int a, int b){
-	M->mat[a][b] = -1;
+	M->mat[a][b] = inf;
 }
 
 //Funcao que remove um elemento sem ser direcinalmente na matriz
 void removeMatNaoOrientada(t_matriz M, int a, int b){
-	M->mat[a][b] = -1;
-	M->mat[b][a] = -1;
+	M->mat[a][b] = inf;
+	M->mat[b][a] = inf;
 }
 
 //Funcao que printa a matriz
@@ -59,7 +60,7 @@ void printMatriz(t_matriz M){
 
 	for(i = 0; i < M->vertice; i++){
 		for(j = 0; j < M->vertice; j++){
-			if(M->mat[i][j] > -1) printf("%d ", M->mat[i][j]);
+			if(M->mat[i][j] != inf) printf("%d ", M->mat[i][j]);
 			else printf(". ");
 		}
 		printf("\n");
@@ -71,7 +72,7 @@ void printaAdjacentesMat(t_matriz M, int v){
 	int i;
 
 	for(i = 0; i < M->vertice; i++)
-		if(M->mat[v][i] > -1) printf("%d ", i);
+		if(M->mat[v][i] != inf) printf("%d ", i);
 	
 	printf("\n");
 }
@@ -82,7 +83,7 @@ void printaMatrizTransposta(t_matriz M){
 
 	for(i = 0; i < M->vertice; i++){
 		for(j = 0; j < M->vertice; j++){
-			if(M->mat[j][i] > -1) printf("%d ", M->mat[j][i]);
+			if(M->mat[j][i] != inf) printf("%d ", M->mat[j][i]);
 			else printf(". ");
 		}
 		printf("\n");
@@ -95,7 +96,7 @@ void menorPeso(t_matriz M, int flag){
 
 	for(i = 0; i < M->vertice; i++){
 		for(j = 0; j < M->vertice; j++){
-			if(M->mat[i][j] != -1 && M->mat[i][j] < menor){ 
+			if(M->mat[i][j] != inf && M->mat[i][j] < menor){ 
 				menor_i = i;
 				menor_j = j;
 				menor = M->mat[i][j];
